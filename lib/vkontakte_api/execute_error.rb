@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module VkontakteApi
   # An exception raised by `VkontakteApi::Result` when given a response with errors from `execute` API method.
   class ExecuteError < StandardError

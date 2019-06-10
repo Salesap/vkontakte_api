@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'faraday'
 require 'faraday_middleware'
 require 'oj' unless defined?(JRUBY_VERSION)
 require 'faraday_middleware/multi_json'
 require 'oauth2'
 require 'yaml'
-require 'hashie'
+require 'ostruct'
 
 require 'vkontakte_api/version'
 require 'vkontakte_api/error'

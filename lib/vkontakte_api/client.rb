@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module VkontakteApi
   # A class representing a connection to VK. It holds the access token.
   class Client
@@ -26,23 +28,23 @@ module VkontakteApi
       email:         4194304,
       market:        134217728
     }
-    
+
     # An access token needed by authorized requests.
     # @return [String]
     attr_reader :token
-    
+
     # Current user id.
     # @return [Integer]
     attr_reader :user_id
-    
+
     # Current user email.
     # @return [String]
     attr_reader :email
-    
+
     # Token expiration time
     # @return [Time]
     attr_reader :expires_at
-    
+
     # A new API client.
     # If given an `OAuth2::AccessToken` instance, it extracts and keeps
     # the token string, the user id and the expiration time;
@@ -60,17 +62,17 @@ module VkontakteApi
         @token = token
       end
     end
-    
+
     # Is a `VkontakteApi::Client` instance authorized.
     def authorized?
       !@token.nil?
     end
-    
+
     # Did the token already expire.
     def expired?
       @expires_at && @expires_at < Time.now
     end
-    
+
     # Access rights of this token.
     # @return [Array] An array of symbols representing the access rights.
     def scope
@@ -78,7 +80,7 @@ module VkontakteApi
         (settings & mask).zero?
       end.keys
     end
-    
+
     # Called without arguments it returns the `execute` namespace;
     # called with arguments it calls the top-level `execute` API method.
     def execute(*args)
@@ -88,7 +90,7 @@ module VkontakteApi
         call_method([:execute, *args])
       end
     end
-    
+
     # If the called method is a namespace, it creates and returns a new `VkontakteApi::Namespace` instance.
     # Otherwise it creates a `VkontakteApi::Method` instance and calls it passing the arguments and a block.
     def method_missing(*args, &block)
@@ -98,8 +100,9 @@ module VkontakteApi
         call_method(args, &block)
       end
     end
-    
-  private
+
+    private
+
     def settings
       @settings ||= self.get_user_settings
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module VkontakteApi
   # An utility module able to flatten arguments (join arrays into comma-separated strings).
   module Utils
@@ -11,7 +13,7 @@ module VkontakteApi
           flat_args
         end
       end
-      
+
       # If an argument is an array, it will be joined with a comma; otherwise it'll be returned untouched.
       # @param [Object] argument The argument to flatten.
       def flatten_argument(argument)

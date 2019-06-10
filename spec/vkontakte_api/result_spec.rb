@@ -82,7 +82,7 @@ describe VkontakteApi::Result do
     end
     
     context "with a successful response" do
-      let(:result) { Hashie::Mash.new(response: result_response) }
+      let(:result) { OpenStruct.new(response: result_response) }
       
       it "returns the response part" do
         expect(subject.send(:extract_result, result)).to eq(result_response)
@@ -90,7 +90,7 @@ describe VkontakteApi::Result do
     end
     
     context "with an error response" do
-      let(:result) { Hashie::Mash.new(error: result_error) }
+      let(:result) { OpenStruct.new(error: result_error) }
       
       it "raises a VkontakteApi::Error" do
         expect {
@@ -100,8 +100,8 @@ describe VkontakteApi::Result do
     end
 
     context 'with execute_errors in the response' do
-      let(:error)  { Hashie::Mash.new(method: 'wall.get', error_code: 15, error_msg: 'Access denied') }
-      let(:result) { Hashie::Mash.new(execute_errors: [error]) }
+      let(:error)  { OpenStruct.new(method: 'wall.get', error_code: 15, error_msg: 'Access denied') }
+      let(:result) { OpenStruct.new(execute_errors: [error]) }
 
       it 'raises a VkontakteApi::ExecuteError' do
         expect {

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module VkontakteApi
   # A low-level module which handles the requests to VKontakte API and returns their results as mashes.
   #
@@ -33,14 +35,14 @@ module VkontakteApi
         token = options.delete(:token)
         
         Faraday.new(url, VkontakteApi.faraday_options) do |builder|
-          builder.request :oauth2, token, token_type: 'param' unless token.nil?
+          builder.request :oauth2, token, token_type: 'param' if token
           builder.request :multipart
           builder.request :url_encoded
           builder.request :retry, VkontakteApi.max_retries
           
           builder.response :vk_logger
-          builder.response :mashify
-          builder.response :multi_json, preserve_raw: true
+          builder.response :json, parser_options: { object_class: OpenStruct }
+          # builder.response :multi_json, preserve_raw: true
           
           builder.adapter VkontakteApi.adapter
         end

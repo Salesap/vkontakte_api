@@ -35,7 +35,7 @@ describe VkontakteApi::Method do
   
   describe "#full_name" do
     let(:method) do
-      resolver = Hashie::Mash.new(name: 'name_space')
+      resolver = OpenStruct.new(name: 'name_space')
       VkontakteApi::Method.new('name', resolver: resolver)
     end
     

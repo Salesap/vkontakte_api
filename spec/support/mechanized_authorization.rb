@@ -31,7 +31,8 @@ module MechanizedAuthorization
       !off?
     end
     
-  private
+    private
+
     def off?
       ENV['NO_AUTH'] || !File.exists?(credentials_path)
     end
@@ -44,7 +45,7 @@ module MechanizedAuthorization
     end
     
     def settings
-      @settings ||= Hashie::Mash.new(settings_hash)
+      @settings ||= OpenStruct.new(settings_hash)
     end
     
     def settings_hash

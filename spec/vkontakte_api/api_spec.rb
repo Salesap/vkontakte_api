@@ -5,7 +5,7 @@ describe VkontakteApi::API do
     @result = { 'response' => { 'key' => 'value' } }
     
     @connection = Faraday.new do |builder|
-      builder.response :mashify
+      builder.response :json, parser_options: { object_class: OpenStruct }
       builder.response :multi_json, preserve_raw: true
       builder.adapter  :test do |stub|
         stub.post('/apiMethod') do

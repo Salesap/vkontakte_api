@@ -9,7 +9,7 @@ describe VkontakteApi::Resolvable do
   
   describe "#initialize" do
     it "saves the name and the resolver" do
-      resolver   = Hashie::Mash.new(token: 'token')
+      resolver   = OpenStruct.new(token: 'token')
       resolvable = @class.new(:name, resolver: resolver)
       
       expect(resolvable.name).to  eq('name')
