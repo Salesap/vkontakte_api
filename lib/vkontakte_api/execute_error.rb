@@ -12,14 +12,14 @@ module VkontakteApi
     # A full description of the error.
     # @return [String]
     def message
-      message = 'VKontakte returned the following errors:'
+      message = ['VKontakte returned the following errors:']
 
       @errors.each do |error|
         message << "\n * Code #{error[:error_code]}: '#{error[:error_msg]}'"
         message << "\n   after calling method '#{error[:method]}'."
       end
 
-      message
+      message.join
     end
   end
 end

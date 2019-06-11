@@ -40,7 +40,7 @@ module VkontakteApi
     # A full description of the error.
     # @return [String]
     def message
-      message = "VKontakte returned an error #{@error_code}: '#{@error_msg}'"
+      message = ["VKontakte returned an error #{@error_code}: '#{@error_msg}'"]
       message << " after calling method '#{@method_name}'"
 
       if @params.empty?
@@ -49,7 +49,7 @@ module VkontakteApi
         message << " with parameters #{@params.inspect}."
       end
 
-      message
+      message.join
     end
 
     private

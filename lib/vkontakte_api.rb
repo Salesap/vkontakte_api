@@ -23,6 +23,7 @@ require 'vkontakte_api/namespace'
 require 'vkontakte_api/method'
 require 'vkontakte_api/result'
 require 'vkontakte_api/logger'
+require 'vkontakte_api/extensions'
 
 # Main module.
 module VkontakteApi
@@ -31,11 +32,17 @@ module VkontakteApi
   extend VkontakteApi::Uploading
   
   class << self
+    # Option for using JSON with `object_class: OpenStruct`
+    # instead Oj with plain Hash. Oj with Hash used by default.
+    #
+    # @return [Boolean] use_openstruct
+    attr_accessor :use_openstruct
+
     # Creates a short alias `VK` for `VkontakteApi` module.
     def register_alias
       Object.const_set(:VK, VkontakteApi)
     end
-    
+
     # Removes the `VK` alias.
     def unregister_alias
       Object.send(:remove_const, :VK) if defined?(VK)

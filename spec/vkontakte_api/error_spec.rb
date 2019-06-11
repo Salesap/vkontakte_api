@@ -23,28 +23,28 @@ describe VkontakteApi::Error do
   end
 
   subject { VkontakteApi::Error.new(error_data) }
-  
+
   describe "#message" do
     context "without parameters" do
       it "returns all needed data about an error" do
         message = 'VKontakte returned an error 5: \'User authorization failed: invalid access_token.\''
         message << ' after calling method \'unknownMethod\' without parameters.'
-        
+
         expect {
           raise subject
         }.to raise_error(subject.class, message)
       end
     end
-    
+
     context "with parameters" do
       before(:each) do
         error_data[:request_params] << OpenStruct.new(key: 'some', value: 'params')
       end
-      
+
       it "returns all needed data about an error" do
         message = 'VKontakte returned an error 5: \'User authorization failed: invalid access_token.\''
         message << ' after calling method \'unknownMethod\' with parameters {"some"=>"params"}.'
-        
+
         expect {
           raise subject
         }.to raise_error(subject.class, message)
@@ -56,9 +56,9 @@ describe VkontakteApi::Error do
         OpenStruct.new(error_code: 11, error_msg: 'Internal server error: Unknown error, try later')
       end
 
-      it "returns all needed data about an error" do
-        message = 'VKontakte returned an error 11: \'Internal server error: Unknown error, try later\''
-        message << ' after calling method \'\' without parameters.'
+      it 'returns all needed data about an error' do
+        message = "VKontakte returned an error 11: \'Internal server error: Unknown error, try later'"
+        message << " after calling method '' without parameters."
 
         expect {
           raise subject

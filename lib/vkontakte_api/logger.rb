@@ -15,7 +15,7 @@ module VkontakteApi
     # Logs the request if needed.
     # @param [Hash] env Request data.
     def call(env)
-      if VkontakteApi.log_requests?
+      if VkontakteApi.log_requests
         @logger.debug "#{env[:method].to_s.upcase} #{env[:url].to_s}"
         @logger.debug "body: #{env[:body].inspect}" unless env[:method] == :get
       end
@@ -24,12 +24,12 @@ module VkontakteApi
     end
 
     # Logs the response (successful or not) if needed.
-    # @param [Hash] env Response data.
+    # @param [Hash,OpenStruct] env Response data.
     def on_complete(env)
       if env[:body].error
-        @logger.warn env[:raw_body] if VkontakteApi.log_errors?
+        @logger.warn env[:body].to_h.to_json if VkontakteApi.log_errors?
       else
-        @logger.debug env[:raw_body] if VkontakteApi.log_responses?
+        @logger.debug env[:body].to_h.to_json if VkontakteApi.log_responses?
       end
     end
   end
