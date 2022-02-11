@@ -10,7 +10,10 @@ module VkontakteApi
       client: {
         site:          'https://oauth.vk.com',
         authorize_url: '/authorize',
-        token_url:     '/access_token'
+        token_url:     '/access_token',
+        extract_access_token: Proc.new do |_c, h|
+          h.select{ |k, _v| k.match(/^access_token/) }.values[0]
+        end
       },
       client_credentials: {
         'auth_scheme' => 'request_body'
